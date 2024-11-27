@@ -1,21 +1,22 @@
 {
-    "short_name": "AchieveIt",
-    "name": "AchieveIt",
-    "icons": [
-      {
-        "src": "/icons/icon-192x192.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      },
-      {
-        "src": "/icons/icon-512x512.png",
-        "type": "image/png",
-        "sizes": "512x512"
-      }
-    ],
-    "start_url": "/index.html",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#6200ee"
-  }
-  
+  "short_name": "AchieveIt",
+  "name": "AchieveIt",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "background_color": "#e9e3ff",
+  "theme_color": "#e9e3ff"
+}
