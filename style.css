@@ -379,3 +379,70 @@ body, html {
   transform: scale(6.1);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
+
+
+/* Bottom Sheet для установки PWA */
+#install-sheet {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  transition: bottom 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  opacity: 0;
+  z-index: 1000;
+}
+
+#install-sheet.active {
+  bottom: 0;
+  opacity: 1;
+}
+
+#install-sheet .sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+#install-sheet .sheet-header span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#install-sheet .sheet-header button {
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: #6200ee;
+  cursor: pointer;
+}
+
+#install-sheet .sheet-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#install-sheet .sheet-content p {
+  font-size: 14px;
+  text-align: center;
+  color: #333;
+}
+
+#install-sheet .sheet-content button {
+  padding: 10px 20px;
+  background: #6200ee;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}

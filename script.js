@@ -132,6 +132,50 @@ function closeBottomSheet() {
   bottomSheetEl.classList.remove('active');
 }
 
+let deferredPrompt; // Для сохранения события
+
+// Перехват события beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (event) => {
+  // Отключаем стандартное поведение
+  event.preventDefault();
+  deferredPrompt = event; // Сохраняем событие
+  showInstallPrompt(); // Показываем кастомный bottom-sheet
+});
+
+// Показываем кастомный bottom-sheet
+function showInstallPrompt() {
+  const installSheet = document.getElementById('install-sheet');
+  installSheet.classList.add('active');
+}
+
+// Обработка клика на "Установить"
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+
+  // Показать системное окно установки
+  deferredPrompt.prompt();
+
+  // Ждем ответа пользователя
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    console.log('Установка принята');
+  } else {
+    console.log('Установка отклонена');
+  }
+
+  deferredPrompt = null; // Сбрасываем событие
+  closeInstallSheet(); // Закрываем bottom-sheet
+});
+
+// Закрытие bottom-sheet
+document.getElementById('close-install-sheet').addEventListener('click', closeInstallSheet);
+
+function closeInstallSheet() {
+  const installSheet = document.getElementById('install-sheet');
+  installSheet.classList.remove('active');
+}
+
+
 // Initialize
 renderDates();
 renderTasks();
