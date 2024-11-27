@@ -1,6 +1,10 @@
 {
   "short_name": "AchieveIt",
   "name": "AchieveIt",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#e9e3ff",
+  "theme_color": "#e9e3ff",
   "icons": [
     {
       "src": "icons/icon-192x192.png",
@@ -12,10 +16,5 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "orientation": "portrait-primary",
-  "background_color": "#e9e3ff",
-  "theme_color": "#e9e3ff"
+  ]
 }
