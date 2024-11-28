@@ -1,4 +1,4 @@
-const CACHE_NAME = 'AchieveIt-v1';
+const CACHE_NAME = 'AchieveIt-v1.1';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -41,3 +41,22 @@ self.addEventListener('activate', (event) => {
     })
   );
 });
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window' }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === '/' && 'focus' in client) {
+          return client.focus();
+        }
+      }
+
+      if (clients.openWindow) {
+        return clients.openWindow('/');
+      }
+    })
+  );
+});
+
