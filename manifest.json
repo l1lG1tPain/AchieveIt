@@ -1,6 +1,7 @@
 {
   "short_name": "AchieveIt",
   "name": "AchieveIt",
+  "version": "1.1.0",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#e9e3ff",
