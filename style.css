@@ -1,22 +1,21 @@
-/* Отключение выделения текста */
-body, .task, .add-task-btn, .nav-btn, .task button, .date-item {
+/* Отключение выделения текста и эффектов на кнопках */
+body, .task, .add-task-btn, .nav-btn, .task button, .date-item, button {
   user-select: none; /* Отключение выделения */
   -webkit-user-select: none; /* Для iOS */
-  
   -ms-user-select: none; /* Для старых версий IE */
+  -webkit-tap-highlight-color: transparent; /* Убираем синий хит-бокс */
 }
 
-/* Отключение эффектов на кнопках */
-button, .date-item {
-  -webkit-tap-highlight-color: transparent; /* Убираем синий хит-бокс */
+/* Скрытие скроллбаров */
+body, .content {
+  scrollbar-width: none; /* Скрывает скроллбар в Firefox */
 }
 
 .content::-webkit-scrollbar {
   display: none; /* Скрывает скроллбар в Chrome, Safari и Edge */
 }
 
-
-/* General Styles */
+/* Общие стили */
 body, html {
   font-family: 'JetBrains Mono', monospace;
   margin: 0;
@@ -25,62 +24,25 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  scrollbar-width: none; /* Скрывает скроллбар в Firefox */
-
-  /* max-height: 100vh; */
 }
 
-/* App Container */
 .app {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
-  /* background: #fff; */
-  /* border-radius: 15px; */
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
   overflow: hidden;
-  scrollbar-width: none; /* Скрывает скроллбар в Firefox */
-
   display: flex;
   flex-direction: column;
-  /* height: 100vh; */
 }
 
-/* Date Slider Section */
+/* Секции Date Slider и Header */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background: #6200ee; */
   padding: 15px;
-  height: 120px; /* Высота date-slider */
+  height: 120px;
   color: #fff;
-}
-
-.para {
-  text-align: center;
-  padding: 5px 30%;
-  /* margin: 0; */
-}
-
-.h-1 {
-  color: #fff;
-  font-size: 23px;
-  font-weight: bold;
-  text-transform: uppercase;
-  background: #000000;
-  width: auto;
-  /* margin: 0 auto; */
-  /* max-width: 40%; */
-  border-radius: 30px;
-}
-
-.nav-btn {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
 }
 
 .date-slider {
@@ -110,16 +72,13 @@ body, html {
   padding: 20px;
 }
 
-/* Content Section */
+/* Секция Content */
 .content {
   flex-grow: 1;
   padding: 20px;
   overflow-y: auto;
-  max-height: 50vh;
-  border-radius: 0 0 50px 50px;
   max-height: calc(100vh - 400px); /* Учитываем высоту кнопки + */
   margin-bottom: 35px; /* Для половины кнопки */
-  /* border: 1px solid black; */
 }
 
 .task-list {
@@ -128,33 +87,78 @@ body, html {
 
 .task {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  gap: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 10px;
   background: #fff;
-  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.7s ease, box-shadow 0.2s ease;
 }
 
-.task-details {
+.task:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Чекбоксы */
+.task-checkbox {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border: 2px solid #6200ee;
+  border-radius: 4px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.task-checkbox.checked {
+  background-color: #6200ee;
+  border-color: #6200ee;
+}
+
+.task-checkbox svg {
+  width: 14px;
+  height: 14px;
+  fill: #fff;
+  display: none;
+}
+
+.task-checkbox.checked svg {
+  display: block;
+}
+
+/* Задача */
+.task-details {
+  flex-grow: 1;
+  word-wrap: break-word;
 }
 
 .task-title {
-  font-size: 16px;
-  font-weight: 500;
   margin: 0;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .task-message {
+  margin: 5px 0 0;
   font-size: 14px;
   color: #666;
-  margin: 0;
 }
 
+.task.completed .task-title,
+.task.completed .task-message {
+  text-decoration: line-through;
+  color: #aaa;
+  transition: color 0.8s ease, text-decoration 0.3s ease;
+}
+
+/* Время задачи */
 .task-time {
   display: flex;
   align-items: center;
@@ -166,21 +170,21 @@ body, html {
   top: 15px;
 }
 
+
 .task-time .time-icon {
   font-size: 16px;
 }
 
-/* Delete Button (Cross Icon) */
-.task button,
-#close-sheet {
+/* Кнопка удаления */
+.task button, #close-sheet {
   background: none;
   border: none;
-  color: #6200ee; /* Цвет крестика как у кнопки + */
+  color: #6200ee;
   font-size: 18px;
   cursor: pointer;
 }
 
-/* Add Task Button */
+/* Плавающая кнопка "+" */
 .add-task-btn {
   position: fixed;
   bottom: 20px;
@@ -195,83 +199,32 @@ body, html {
   border-radius: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.2s ease;
+}
+
+.add-task-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Bottom Sheet */
-.bottom-sheet {
+.bottom-sheet, #install-sheet {
   position: fixed;
   bottom: -100%;
   left: 0;
   width: 100%;
   background: #fff;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-  transition: bottom 0.3s ease-in-out;
+  transition: bottom 0.3s ease-in-out, opacity 0.3s ease-in-out;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  opacity: 0;
+  z-index: 1000;
 }
 
-.bottom-sheet.active {
+.bottom-sheet.active, #install-sheet.active {
   bottom: 0;
-}
-
-.sheet-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-}
-
-.sheet-header span {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.sheet-content {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.sheet-content label {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.sheet-content input,
-.sheet-content textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.sheet-content .time-input {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sheet-content .time-icon {
-  font-size: 16px;
-  color: #6200ee;
-}
-
-.sheet-content button {
-  width: 100%;
-  padding: 10px;
-  background: #6200ee;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
+  opacity: 1;
 }
 
 /* Responsive Design */
@@ -306,14 +259,6 @@ body, html {
   .task {
     padding: 20px;
   }
-
-  .task-title {
-    font-size: 20px;
-  }
-
-  .task-message {
-    font-size: 18px;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -333,116 +278,139 @@ body, html {
   .task {
     padding: 25px;
   }
-
-  .task-title {
-    font-size: 22px;
-  }
-
-  .task-message {
-    font-size: 20px;
-  }
 }
 
+.para {
+  text-align: center;
+}
 
-/* Плавное появление bottom-sheet */
+.h-1 {
+  color: #fff;
+  font-size: 23px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #000000;
+  padding: 5px 10px;
+  border-radius: 30px;
+  /* text-align: center; */
+  display: inline-block;
+  margin: 15px auto 0;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); Тень */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Анимация */
+}
+
+/* Bottom Sheet for Adding Task */
 .bottom-sheet {
-  transition: bottom 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  opacity: 0; /* Скрытие по умолчанию */
-}
-
-.bottom-sheet.active {
-  opacity: 1; /* Появление */
-}
-
-/* Плавное увеличение задачи при наведении */
-.task {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-
-.task:hover {
-  transform: scale(1.05); /* Немного увеличивается */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Тень при наведении */
-}
-
-/* Плавный переход подсветки */
-.task.past-task {
-  transition: background-color 0.3s ease, opacity 0.3s ease;
-}
-
-/* Плавность для кнопки "+" */
-.add-task-btn {  
-  transition: transform 0.4s ease, box-shadow 0.2s ease;
-}
-
-.add-task-btn:hover {
-  transform: scale(6.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-
-/* Bottom Sheet для установки PWA */
-#install-sheet {
   position: fixed;
-  bottom: -100%;
+  bottom: -100%; /* Скрываем за пределами экрана */
   left: 0;
   width: 100%;
   background: #fff;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-  transition: bottom 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: bottom 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Плавное появление */
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  opacity: 0;
-  z-index: 1000;
+  opacity: 0; /* Прозрачность в скрытом состоянии */
+  z-index: 1000; /* Поверх остальных элементов */
 }
 
-#install-sheet.active {
-  bottom: 0;
-  opacity: 1;
+.bottom-sheet.active {
+  bottom: 0; /* Появление на экране */
+  opacity: 1; /* Прозрачность полностью убрана */
 }
 
-#install-sheet .sheet-header {
+.sheet-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid #ddd;
+  background-color: #f8f9fa; /* Легкий серый фон для заголовка */
 }
 
-#install-sheet .sheet-header span {
+.sheet-header span {
   font-size: 18px;
   font-weight: bold;
-}
-
-#install-sheet .sheet-header button {
-  font-size: 18px;
-  background: none;
-  border: none;
-  color: #6200ee;
-  cursor: pointer;
-}
-
-#install-sheet .sheet-content {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-#install-sheet .sheet-content p {
-  font-size: 14px;
-  text-align: center;
   color: #333;
 }
 
-#install-sheet .sheet-content button {
-  padding: 10px 20px;
-  background: #6200ee;
+.sheet-header button {
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: #6200ee; /* Основной цвет */
+  cursor: pointer;
+}
+
+.sheet-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sheet-content label {
+  display: flex;
+  flex-direction: column; /* Элементы располагаются друг под другом */
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333; /* Темный текст для контраста */
+  width: 100%; /* Устанавливаем ширину на 100% */
+  box-sizing: border-box; /* Учитываем padding и border в ширине */
+}
+
+.sheet-content input,
+.sheet-content textarea {
+  width: 100%; /* Элементы занимают ширину родителя */
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace; /* Единообразие шрифта */
+  font-size: 14px;
+  box-sizing: border-box; /* Учитываем padding и border в ширине */
+}
+
+.sheet-content .time-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%; /* Устанавливаем ширину на 100% */
+  box-sizing: border-box; /* Учитываем padding и border */
+}
+
+.sheet-content .time-icon {
+  font-size: 16px;
+  color: #6200ee; /* Основной цвет */
+  flex-shrink: 0; /* Иконка не сжимается */
+}
+
+.sheet-content input:focus,
+.sheet-content textarea:focus {
+  outline: none;
+  border-color: #6200ee; /* Основной цвет при фокусе */
+  box-shadow: 0 0 5px rgba(98, 0, 238, 0.4); /* Легкое свечение */
+}
+
+.sheet-content button {
+  width: 100%;
+  padding: 12px;
+  background: #6200ee; /* Основной цвет */
   color: #fff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Плавный переход при наведении */
+}
+
+.sheet-content button:hover {
+  background-color: #5200bb; /* Темный оттенок */
+  transform: scale(1.02); /* Легкое увеличение */
+}
+
+.sheet-content button:active {
+  background-color: #3e008a; /* Ещё темнее при нажатии */
 }
